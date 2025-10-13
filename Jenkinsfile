@@ -2,26 +2,26 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven-3.9'  // Name of Maven installation in Jenkins
-        jdk 'Java-17'       // Name of JDK installation in Jenkins
+        maven 'Maven'   // use the exact Maven name from Jenkins
+        jdk 'JDK_17'    // use the exact JDK name from Jenkins
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git credentialsId: 'github-cred-id', url: 'https://github.com/VivekMishra21/AUTOMATION_Website.git'
+                git 'https://github.com/VivekMishra21/AUTOMATION_Website.git'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'mvn clean compile'
+                bat 'mvn clean compile'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'mvn test'
+                bat 'mvn test'
             }
             post {
                 always {
@@ -35,11 +35,6 @@ pipeline {
         always {
             echo 'Build Finished!'
         }
-        success {
-            echo 'Tests Passed!'
-        }
-        failure {
-            echo 'Build/Tests Failed!'
-        }
     }
 }
+
