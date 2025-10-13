@@ -1,40 +1,42 @@
 pipeline {
     agent any
 
-    tools {
-        maven 'Maven'   // use the exact Maven name from Jenkins
-        jdk 'JDK_17'    // use the exact JDK name from Jenkins
+    environment {
+        // Tool names must match exactly what you have configured in Jenkins
+        MAVEN_HOME = tool name: 'Maven', type: 'maven'
+        JAVA_HOME = tool name: 'JDK_17', type: 'jdk'
+        PATH = "${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${env.PATH}"
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/VivekMishra21/AUTOMATION_Website.git'
+                // Pull code from main branch
+                git branch: 'main', url: 'https://github.com/VivekMishra21/AUTOMATION_Website.git',  credentialsId: 'github_pat'
             }
         }
 
         stage('Build') {
             steps {
-                bat 'mvn clean compile'
+                echo 'Building the project with Maven...'
+                bat "${MAVEN_HOME}/bin/mvn clean compile"
             }
         }
 
-        stage('Test') {
+        stage('Run Tests') {
             steps {
-                bat 'mvn test'
-            }
-            post {
-                always {
-                    junit '**/target/surefire-reports/*.xml'
-                }
+                echo 'Running automated tests...'
+                bat "${MAVEN_HOME}/bin/mvn test"
             }
         }
     }
 
     post {
-        always {
-            echo 'Build Finished!'
+        success {
+            echo 'Build and Tests completed successfully!'
+        }
+        failure {
+            echo 'Build or Tests failed. Check logs!'
         }
     }
 }
-
