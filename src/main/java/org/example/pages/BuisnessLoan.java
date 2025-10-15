@@ -9,11 +9,12 @@ import java.time.Duration;
 
 public class BuisnessLoan {
 
-  WebDriver driver;
+  public WebDriver driver;
+
 
   public void buisnessLoanForm() throws InterruptedException{
-      driver=new ChromeDriver();
-      driver.manage().window().maximize();
+//      driver=new ChromeDriver();
+//      driver.manage().window().maximize();
 
       driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
@@ -33,6 +34,9 @@ public class BuisnessLoan {
           WebElement occupationDropdown=wait.until(ExpectedConditions.elementToBeClickable(By.id("Occupation-button")));
           ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", occupationDropdown);
           Thread.sleep(500);
+
+          WebElement reality =wait.until(ExpectedConditions.elementToBeClickable(By.id("Home")));
+          ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);",occupationDropdown);
 
           try {
               occupationDropdown.click();
@@ -61,18 +65,16 @@ public class BuisnessLoan {
           //EmailId
           driver.findElement(By.id("EmailID")).sendKeys("test@gmail.com");
 
+
+
           // === Date of Birth ===
           WebElement dobInput = driver.findElement(By.id("DOB"));
           dobInput.click();
           Thread.sleep(1000);
 
 
-          WebElement name=driver.findElement(By.id("Name"));
-
-
-
           Select yearSelect = new Select(driver.findElement(By.className("ui-datepicker-year")));
-          yearSelect.selectByVisibleText("1995");
+          yearSelect.selectByVisibleText("1996");
 
           Select monthSelect = new Select(driver.findElement(By.className("ui-datepicker-month")));
           monthSelect.selectByVisibleText("Oct");
@@ -83,7 +85,10 @@ public class BuisnessLoan {
           driver.findElement(By.id("PANcard")).sendKeys("ABCDI3348Q");
           System.out.println("Successfull fill pancard");
 
+
+
 //          //gender
+
 //          try {
 //              // Step 1: Click on the visible dropdown button
 //              WebElement genderDropdown = wait.until(ExpectedConditions.elementToBeClickable(By.id("gender-button")));
@@ -129,14 +134,6 @@ public class BuisnessLoan {
            WebElement submitButton=driver.findElement(By.className("submitBtn"));
           ((JavascriptExecutor)driver).executeScript("arguments[0].click();",submitButton);
           System.out.println("Submit Button Click");
-
-
-
-
-
-
-
-
 
 
       } catch (InterruptedException e) {

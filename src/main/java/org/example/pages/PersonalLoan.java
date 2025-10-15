@@ -8,13 +8,13 @@ import java.time.Duration;
 
 public class PersonalLoan {
 
-    WebDriver driver;
+    public WebDriver driver;
 
 
     public void personalLoanForm() throws InterruptedException {
         // Launch Chrome
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+//        driver = new ChromeDriver();
+//        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
         // Open Wishfin Personal Loan form
@@ -45,9 +45,11 @@ public class PersonalLoan {
             WebElement monthlyIncome = driver.findElement(By.id("MonthlyIncome"));
             monthlyIncome.sendKeys("30000");
 
-            // === Pincode ===
+            // === Pincode === //
             WebElement pincode = driver.findElement(By.id("pincode"));
             pincode.sendKeys("110066");
+
+
 
             //==current addresss
             WebElement currentAddress=driver.findElement(By.id("RelativeAddress"));
