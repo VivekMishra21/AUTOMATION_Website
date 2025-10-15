@@ -35,8 +35,6 @@ public class BuisnessLoan {
           ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", occupationDropdown);
           Thread.sleep(500);
 
-          WebElement reality =wait.until(ExpectedConditions.elementToBeClickable(By.id("Home")));
-          ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);",occupationDropdown);
 
           try {
               occupationDropdown.click();
